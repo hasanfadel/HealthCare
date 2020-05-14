@@ -90,7 +90,7 @@ class DoctorCard extends Component {
                         <div className="card-meta d-flex justify-content-between">
                             <div className="d-flex align-items-center">
                                 <span className="text">Specialties: </span>
-                            </div>
+                            </div> 
                         </div>
                         {this.renderSpecialties()}
                     </div>
