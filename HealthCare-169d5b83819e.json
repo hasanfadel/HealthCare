@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "healthcare-277011",
+  "private_key_id": "169d5b83819e43e26aec12feee2d37d163758f29",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDDYrXnEbiIoG5c\ns2qzJF4zTT7MOAQ/Qwpb8IqPy3qLK/VWW34iiezW3j/rw6mBOnADvIYAF1tNYQqw\ns4hiNHo/fUzTI7su3BWtNeYPba8qKuEGJNC9xQ0xG9gVHM60GargzOKKuw+7qhkm\nlZlykWC00OmJn5BzYb6L0akLbBzIfJ2BLY7rvG+9h1Jv5Zbg4NRrtBQiQXnV6OB5\nTrIovMAh7wuTZ/KD/lhvT8pLZzFKhidY52r9OAPAK7YUnZCqYpAZ2PUkba80Rq7e\nJ23PUI2QrM2i5pLheq0O5BrepNZjUeXMzydfUSBq0J7w8mqJL90CQyXxNv4ClEDg\ndsfI3n8fAgMBAAECggEAFKr56/Xza7xwwCyYcle8AThAFtEsHdcFHwGcXqabEWK2\ngoqOFrA5VedPoqxhX1Kjq7mDATp3RYGo5FUxbZX4goPKHyGN+OB+CIMFkYc8Or0r\nbX9yd0iDYzj7TAxujx2R9lKl+h/cg7D0FSFJCJX5QVdCBPVUjef+hILKm3M1vj1F\nCAVZKbr2JPjoPQi5jnwrOZny3oHwdp9kaUTrCiRpSWMb5lUXYgFfovUVc9dWk7Vf\neHsRtPTIOXtsTEqMYc/2YY3PwQPqNd14ipzmnCkBwS63UrAElc1+8t8VMhnjuWnA\ncCBJ6vkzLi1E1JxUzd35n1UkvDOgzA21cFDmU9c9gQKBgQDir2jXzgFgKdat4cUW\niEmhwNUNp3QLvJo1JWxuynCLZT1npH/BLJbDXp77mY1/0x2TvdlNG6E4IP50aOMG\nbYBzBspT0OxiI4zZvgoz50gpEHL9VYEUKJVNR4bpKW5zEY5fj/Wi0lh/ZEHsvPVX\nYzCXJ/7s/i4Jecl8YYUOkGNGgQKBgQDcpxpmGCGv4bdILuRqvFeLq9fmPlvz8Lqz\nDtqpxCCKtjeMIrd1fNI5RQb7KIGWUq+ZnJ+DCw8d9dvSLcGRexMu33ZZI6jEqcik\n1vHF0o4cOgvR/HBSutAv2gxWwgEzSLLuUolFzRdrvmclfsd/AaG3pt893c6EeJlg\nlmrqER01nwKBgFwWA9I/BoIJHQOwBn9byAWkrygH0XV/HWnflQgAxu1pqCM1SQyx\nT2F4S79Lppa5rXc6FU9knP6PMK8beLZAv4B6zrBz28MWS/6cW8qv9rlvzDariG8m\n+VfWabDIOu0Vwa+CbLfDGV5O3RUNweDJE5EkF0QxEYSZ68bSWtoKv7mBAoGBALw3\nckZKKVodILla/o6pb8f9YqHM6aTw4GDit9T+LoAEJOfNqU53ld8yKV1OVRPEHnPa\n7Rnb8h4tXUAwtaACKv/dr9cjms9+wF8T1pJXI8+iF/kb6zg2kGVxCvtqa5myVqcC\nEoRPCL5oYRXTyhplauv8VQsxy/ql4LdKN5LH3HGjAoGAXYjaYOfUYx9Em2jWeoju\nErDOGNOJCVwre+FbeWNrznUXsY5t7T8RXk2for4kW0CBbllfRo66qCV7Pvw8QXCE\nRUkj/f7570d+SgtmI2mNR1qmG+IbLUHEP0lFz8KCYSpt3FzgcjidR6M6LJq/Pb3c\nIwVg/I92GSsnGP01O4a4RsY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "admin-191@healthcare-277011.iam.gserviceaccount.com",
+  "client_id": "101356365987494996436",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/admin-191%40healthcare-277011.iam.gserviceaccount.com"
+}

@@ -1,0 +1,28 @@
+html,
+body {
+    height: 100vh;
+    font-family: Nunito;
+}
+
+/* Custom Register/Login Style --------------------------------------- */
+
+.top-right {
+    position: absolute;
+    right: 10px;
+    top: 18px;
+}
+/*--------------------------------------- */
+
+.site-wrapper {
+    width: 100%;
+    background:url("/storage/images/bg4.png");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.btn-round {
+    border-radius: 20px;
+    background-color: #64a7fb;
+    border-color: #64a7fb;
+}

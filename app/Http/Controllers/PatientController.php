@@ -48,6 +48,12 @@ class PatientController extends Controller
     {
         //
     }
+    public function get()
+    {
+        //
+        $patient = Patient::where('user_id', auth()->id())->with('User')->first();
+        return response()->json($patient);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -70,6 +76,28 @@ class PatientController extends Controller
     public function update(Request $request, Patient $patient)
     {
         //
+        $patient = Patient::findOrFail($request->id);
+        $patient->birth = $request->birth;
+        $patient->height = $request->height;
+        $patient->weight = $request->weight;
+        $patient->disease = $request->disease;
+        $patient->medicine = $request->medicine;
+        $patient->filename = $request->filename;
+        if ($request->hasFile('filename')) {
+            //
+            $f = $request->file('filename')->extension();
+            $file = request('filename');
+            $image = time() . time() . '.' . $f;
+
+            $target_path = public_path('/images/');
+            $file->move($target_path, $image);
+            $patient->filename = $image;
+        }
+        
+        if ($patient->save()) {
+            return response()->json(['message' => 'Profile Updated', 'patient' => $patient]);
+        }
+        return response()->json(['message' => 'Profile Did not Updated']);
     }
 
     /**

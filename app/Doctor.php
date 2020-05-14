@@ -16,17 +16,17 @@ class Doctor extends Model
 
     public function patients()
     {
-        return $this->belongsToMany(Patient::class, 'patient_id');
+        return $this->belongsToMany(Patient::class);
     }
 
     public function specialties()
     {
-        return $this->belongsToMany(Specialty::class, 'specialty_id');
+        return $this->belongsToMany(Specialty::class);
     }
 
     public function appointments()
     {
-        return $this->belongsToMany(Patient::class, 'patient_id')
+        return $this->belongsToMany(Patient::class)
             ->using(Appointment::class)
             ->withPivot('title', 'date', 'time')
             ->withTimestamps();

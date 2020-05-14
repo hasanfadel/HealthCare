@@ -1,15 +1,69 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes React and other helpers. It's a great starting point while
- * building robust, powerful web applications using React + Laravel.
- */
+require("./bootstrap");
 
-require('./bootstrap');
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Profile from './components/profile'
+import Doctors from './components/doctors'
 
-/**
- * Next, we will create a fresh React component instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 
-require('./components/Example');
+if (document.getElementById("root")) {
+    ReactDOM.render(<Profile />, document.getElementById("root"));
+     
+}
+
+
+let li = document.getElementById("li1");
+let a = document.createElement("button");
+a.className = "btn btn-primary";
+let i = document.createElement("i");
+// i.className = "far fa-user-circle";
+a.textContent = "Profile   ";
+a.appendChild(i);
+li.appendChild(a);
+a.addEventListener("click", () => {
+    if (document.getElementById("root")) {
+        ReactDOM.render(<Profile />, document.getElementById("root"));
+    }
+
+});
+
+let li2 = document.getElementById("li2");
+let a2 = document.createElement("button");
+a2.className = "btn btn-primary";
+let i2 = document.createElement("i");
+// i2.className = "fas fa-sitemap";
+a2.textContent = "Doctors   ";
+a2.appendChild(i2);
+li2.appendChild(a2);
+a2.addEventListener("click", () => {
+    if (document.getElementById("root")) {
+        ReactDOM.render(<Doctors />, document.getElementById("root"));
+    }
+});
+
+let li3 = document.getElementById("li3");
+let a3 = document.createElement("button");
+a3.className = "btn btn-primary";
+let i3 = document.createElement("i");
+// i3.className = "fas fa-sitemap";
+a3.textContent = "Appointments   ";
+a3.appendChild(i3);
+li3.appendChild(a3);
+a3.addEventListener("click", () => {
+    if (document.getElementById("root")) {
+    }
+});
+
+let li4 = document.getElementById("li4");
+let a4 = document.createElement("button");
+a4.className = "btn btn-primary";
+let i4 = document.createElement("i");
+// i4.className = "fas fa-sitemap";
+a4.textContent = "Reports   ";
+a4.appendChild(i4);
+li4.appendChild(a4);
+a4.addEventListener("click", () => {
+    if (document.getElementById("root")) {
+    }
+});
+

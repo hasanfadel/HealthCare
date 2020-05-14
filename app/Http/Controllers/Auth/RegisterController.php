@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use App\Patient;
+use App\Doctor;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -53,6 +55,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required'],
         ]);
     }
 
@@ -64,10 +67,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        // dd($data);
+        $user = new User();
+        
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->role =  $data['role'];
+        $user->gender =  $data['gender'];
+        $user->password = Hash::make($data['password']);
+        $user->save();
+        if($data['role'] == 0){
+            $patient = new Patient();
+            $patient->user_id = $user->id;
+            $patient->save();
+        }
+        if($data['role'] == 1){
+            $doctor = new Doctor();
+            $doctor->user_id = $user->id;
+            $doctor->save();
+        }
+        
+        return $user;
     }
 }

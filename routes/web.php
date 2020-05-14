@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::prefix('api')->group(function () {
+
+    Route::get('/Patient/get/', 'PatientController@get');
+
+
+    Route::resource('Doctor', 'DoctorController');
+    Route::resource('Appointment', 'AppointmentController');
+    Route::resource('Patient', 'PatientController');
+    Route::resource('Report', 'ReportController');
+    Route::resource('User', 'UserController');
+});
