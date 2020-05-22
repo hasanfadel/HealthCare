@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Appointment;
+use App\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
@@ -15,6 +17,12 @@ class AppointmentController extends Controller
     public function index()
     {
         //
+        $doctors = Appointment::where('patient_id', '=', Auth::id())
+            ->with('doctor', 'doctor.user')
+            ->orderBy('date', 'ASC')
+            ->orderBy('time', 'ASC')
+            ->get();
+        return response()->json($doctors);
     }
 
     /**
@@ -36,6 +44,19 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         //
+        $patient = Patient::where('user_id', Auth::id())->first();
+        $appointment = new Appointment();
+        $appointment->doctor_id = $request->doctor_id;
+        $appointment->patient_id = $patient->id;
+        $appointment->title = $request->title;
+        $appointment->date = $request->date;
+        $appointment->time = $request->time;
+        $appointment->notes = $request->notes;
+
+        if ($appointment->save()) {
+            return response()->json(['message' => 'Appointment has been scheduled', 'appointment' => $appointment]);
+        }
+        return response()->json(['message' => 'Appointment not saved']);
     }
 
     /**

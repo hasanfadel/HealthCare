@@ -1,6 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <!-- Authentication Links -->
+            @guest
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+            </li>
+            @if (Route::has('register'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+            </li>
+            @endif
+            @endguest
+        </ul>
+    </div>
+</nav>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

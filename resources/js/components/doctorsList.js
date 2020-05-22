@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DoctorCard from './doctorCard'
 
-class Doctors extends Component {
+class DoctorsList extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -56,4 +56,4 @@ class Doctors extends Component {
 }
 
 
-export default Doctors;
+export default DoctorsList;

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 import axios from 'axios';
+import Doctor from './doctor';
 
 class DoctorCard extends Component {
     constructor(props) {
@@ -14,6 +16,7 @@ class DoctorCard extends Component {
         };
         this.handleModalChange = this.handleModalChange.bind(this);
         this.handleModalSubmit = this.handleModalSubmit.bind(this);
+        this.doctor = this.doctor.bind(this);
     }
 
     componentDidMount() {
@@ -43,7 +46,9 @@ class DoctorCard extends Component {
     }
 
     doctor() {
-
+        if (document.getElementById("root")) {
+            ReactDOM.render(<Doctor doctor={this.props.doctor} />, document.getElementById("root"));
+        }
     }
 
     renderSpecialties() {
@@ -54,10 +59,7 @@ class DoctorCard extends Component {
                 </div>
             </div>)
         })
-
     }
-
-    
 
     render() {
         let gender = "";
@@ -94,9 +96,7 @@ class DoctorCard extends Component {
                         </div>
                         {this.renderSpecialties()}
                     </div>
-                    <div class="card-footer bg-transparent">
-                        <a href="#" data-toggle="modal" data-target={modalBtn} class="btn btn-primary">Schedule Meeting</a>
-                    </div>
+                    
                 </div>
 
                 <div className="modal fade" id={modalId} tabIndex="-1" role="dialog"

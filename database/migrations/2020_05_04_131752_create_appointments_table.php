@@ -20,7 +20,10 @@ class CreateAppointmentsTable extends Migration
             $table->string('title');
             $table->date('date');
             $table->time('time');
+            $table->longText('notes');
             $table->timestamps();
+
+            $table->unique(['doctor_id', 'date', 'time']);
 
             $table->foreign('doctor_id')
                 ->references('id')

@@ -20,6 +20,9 @@ class CreateDoctorsTable extends Migration
             $table->longText('education')->nullable();
             $table->longText('bio')->nullable();
             $table->string('filename')->nullable();
+            $table->time('start')->nullable();
+            $table->time('end')->nullable();
+            $table->time('duration')->nullable();
             $table->timestamps();
 
             $table->unique('user_id');

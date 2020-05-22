@@ -40,7 +40,7 @@ class Profile extends Component {
             });
 
     }
-
+    
     componentDidMount() {
         // Get request for laravel api call
         this.getProfile();
