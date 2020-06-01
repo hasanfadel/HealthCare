@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 import axios from 'axios';
-import Doctor from './doctor';
+import Doctor from './doctorPage';
 
 class DoctorCard extends Component {
     constructor(props) {

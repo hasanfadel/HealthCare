@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="layout layout-nav-side">
+<div class="layout layout-nav-side" id="all">
     <div class="navbar navbar-expand-lg bg-primary navbar-info sticky-top ">
 
         <div class="text-center">
@@ -176,6 +176,9 @@
 
             </div> --}}
             
+        </div>
+        <div id="local-media">
+
         </div>
 
     </div>

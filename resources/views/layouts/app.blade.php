@@ -20,13 +20,12 @@
     <script type="text/javascript" src="//cdn.timekit.io/booking-js/v2/booking.min.js" defer></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52115242-14"></script>
     <script src="//media.twiliocdn.com/sdk/js/video/releases/2.4.0/twilio-video.min.js"></script>
-    {{-- SID: SKacd0f3a5819afc6508edd280a01c2fee      Secret: wO66YGo4TQlsQbDsWfIr50c2bAtNdkXQ --}}
+    {{-- API SID: SKacd0f3a5819afc6508edd280a01c2fee      Secret: wO66YGo4TQlsQbDsWfIr50c2bAtNdkXQ --}}
     
     
     {{-- 7ih3p2et5d3k1tyf  --}}
 
     {{-- ttdfayrfezjhbrqc --}}
-
 </head>
 
 <body>

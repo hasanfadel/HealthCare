@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
         Commands\SendNot::class,
+        Commands\Meeting::class,
     ];
 
     /**
@@ -38,14 +39,25 @@ class Kernel extends ConsoleKernel
             $dateTime = substr($dateInDatabase . " " . $time, 0, -3);
             // echo($dateTime);
             $schedule->command('SendNot:reminder')->when(function () use ($dateTime) {
-                echo ($dateTime);
-                echo("  ");
                 $date = date("Y-m-d H:i");
                 $time = strtotime($date);
-                $time = $time + (15 * 60);
+                $time = $time + (30 * 60);
                 $date = date("Y-m-d H:i", $time);
-                echo($date);
-                echo("  ");
+                // echo ($dateTime);
+                // echo("  ");
+                // echo($date);
+                // echo("  ");
+                return ($dateTime === $date);
+            });
+            $schedule->command('Meeting:create')->when(function () use ($dateTime) {
+                $date = date("Y-m-d H:i");
+                $time = strtotime($date);
+                $time = $time + (5 * 60);
+                $date = date("Y-m-d H:i", $time);
+                // echo ($dateTime);
+                // echo("  ");
+                // echo($date);
+                // echo("  ");
                 return ($dateTime === $date);
             });
         }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Reminder;
 use App\User;
+use Twilio\Rest\Client;
 
 class SendNot extends Command
 {
@@ -49,6 +50,19 @@ class SendNot extends Command
         //     $message->from('hasanfadel77@gmail.com', 'Virat Gandhi');
         // });
         $user = User::where('id', '1')->first();
-        Mail::to($user)->send(new Reminder);
+        Mail::to("hasanfadel25@gmail.com")->send(new Reminder);
+
+        $sid    = "AC2ea396faca0e2faefbd776a568edb342";
+        $token  = "1f01984f0a62898c2133366cad5732de";
+        $twilio = new Client($sid, $token);
+
+        $message = $twilio->messages
+            ->create(
+                "+96171166170", // to 
+                array(
+                    "from" => "+19032318655",
+                    "body" => "This is a reminder for your appointment at HealthCare"
+                )
+            );
     }
 }

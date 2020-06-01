@@ -38,7 +38,7 @@
         "shards-react": "^1.0.3",
         "timekit-booking": "^2.6.0",
         "tls": "0.0.1",
-        "twilio": "^3.43.1",
-        "twilio-video": "^2.4.0"
+        "twilio": "^3.44.0",
+        "twilio-video": "^2.5.0"
     }
 }

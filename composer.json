@@ -14,7 +14,10 @@
         "guzzlehttp/guzzle": "^6.5",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.0"
+        "laravel/ui": "^2.0",
+        "sendgrid/sendgrid": "~7",
+        "twilio/sdk": "^6.6",
+        "monolog/monolog": "1.0.*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

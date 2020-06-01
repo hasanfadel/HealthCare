@@ -7,6 +7,9 @@ use App\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Twilio\Jwt\AccessToken;
+use Twilio\Jwt\Grants\VideoGrant;
+
 class AppointmentController extends Controller
 {
     /**
@@ -33,6 +36,36 @@ class AppointmentController extends Controller
     public function create()
     {
         //
+    }
+
+    public function token()
+    {
+        //
+
+
+        // // Substitute your Twilio AccountSid and ApiKey details
+        // $accountSid = 'AC2ea396faca0e2faefbd776a568edb342';
+        // $apiKeySid = 'SKacd0f3a5819afc6508edd280a01c2fee';
+        // $apiKeySecret = 'wO66YGo4TQlsQbDsWfIr50c2bAtNdkXQ';
+
+        // $identity = 'example-user';
+
+        // // Create an Access Token
+        // $token = new AccessToken(
+        //     $accountSid,
+        //     $apiKeySid,
+        //     $apiKeySecret,
+        //     3600,
+        //     $identity
+        // );
+
+        // // Grant access to Video
+        // $grant = new VideoGrant();
+        // $grant->setRoom('cool room');
+        // $token->addGrant($grant);
+
+        // // Serialize the token as a JWT
+        // echo $token->toJWT();
     }
 
     /**
