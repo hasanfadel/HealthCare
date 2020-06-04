@@ -12,92 +12,87 @@ class Doctor extends Component {
             time: '',
             notes: '',
             startDate: '',
+            titlei: '',
+            description: '',
+            datei: '',
         };
-        this.handleAppChange = this.handleAppChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleAppSubmit = this.handleAppSubmit.bind(this);
+        this.handleIssueSubmit = this.handleIssueSubmit.bind(this);
     }
 
-    async componentDidMount() {
-        // Get request for laravel api call
-        // const accountSid = 'AC2ea396faca0e2faefbd776a568edb342';
-        // const authToken = '1f01984f0a62898c2133366cad5732de';
-        // const client = require('twilio')(accountSid, authToken);
+    componentDidMount() {
 
-        // client.video.rooms.create({ uniqueName: 'DailyStandup' })
-        //     .then(room => console.log(room.sid));
+        // let AccessToken = require('twilio').jwt.AccessToken;
+        // let VideoGrant = AccessToken.VideoGrant;
 
-        var AccessToken = require('twilio').jwt.AccessToken;
-        var VideoGrant = AccessToken.VideoGrant;
+        // // Substitute your Twilio AccountSid and ApiKey details
+        // let ACCOUNT_SID = 'AC2ea396faca0e2faefbd776a568edb342';
+        // let API_KEY_SID = 'SKacd0f3a5819afc6508edd280a01c2fee';
+        // let API_KEY_SECRET = 'wO66YGo4TQlsQbDsWfIr50c2bAtNdkXQ';
 
-        // Substitute your Twilio AccountSid and ApiKey details
-        var ACCOUNT_SID = 'AC2ea396faca0e2faefbd776a568edb342';
-        var API_KEY_SID = 'SKacd0f3a5819afc6508edd280a01c2fee';
-        var API_KEY_SECRET = 'wO66YGo4TQlsQbDsWfIr50c2bAtNdkXQ';
+        // // Create an Access Token
+        // let accessToken = new AccessToken(
+        //     ACCOUNT_SID,
+        //     API_KEY_SID,
+        //     API_KEY_SECRET
+        // );
 
-        // Create an Access Token
-        var accessToken = new AccessToken(
-            ACCOUNT_SID,
-            API_KEY_SID,
-            API_KEY_SECRET
-        );
+        // // Set the Identity of this token
+        // accessToken.identity = 'patient' + this.props.doctor.id;
 
-        // Set the Identity of this token
-        accessToken.identity = 'patient' + this.props.doctor.id;
+        // // Grant access to Video
+        // let grant = new VideoGrant();
+        // grant.room = 'Appointment';
+        // accessToken.addGrant(grant);
 
-        // Grant access to Video
-        var grant = new VideoGrant();
-        grant.room = 'Appointment';
-        accessToken.addGrant(grant);
-
-        // Serialize the token as a JWT
-        var jwt = accessToken.toJwt();
-        console.log(jwt);
+        // // Serialize the token as a JWT
+        // let jwt = accessToken.toJwt();
+        // console.log(jwt);
 
 
 
-        const { connect, createLocalVideoTrack } = require('twilio-video');
+        // const { connect, createLocalVideoTrack } = require('twilio-video');
 
-        // Option 1
-        connect(jwt, {
-            audio: true,
-            name: 'Appointment',
-            video: { width: 640 }
+        // // Option 1
+        // connect(jwt, {
+        //     audio: true,
+        //     name: 'Appointment',
+        //     video: { width: 640 }
 
-        }).then(room => {
-            console.log(`Successfully joined a Room: ${room}`);
-            console.log(`Connected to Room: ${room.name}`);
-            console.log("participants", room.participants);
-            room.participants.forEach(participant => {
-                participant.tracks.forEach(publication => {
-                    if (publication.track) {
-                        document.getElementById('local-media').appendChild(track.attach());
-                    }
-                });
-    
-                participant.on('trackSubscribed', track => {
-                    document.getElementById('local-media').appendChild(track.attach());
-                });
-            });
-    
-            room.on('participantConnected', participant => {
-                console.log(`Participant "${participant.identity}" connected`);
-                
-                participant.on('trackSubscribed', track => {
-                    document.getElementById('local-media').appendChild(track.attach());
-                });
-                room.once('participantConnected', participant => {
-                    console.log(`Participant "${participant.identity}" has connected to the Room`);
-                });
-        }, error => {
-            console.error(`Unable to connect to Room: ${error.message}`);
-        });
+        // }).then(room => {
+        //     console.log(`Successfully joined a Room: ${room}`);
+        //     console.log(`Connected to Room: ${room.name}`);
+        //     console.log("participants", room.participants);
+        //     room.participants.forEach(participant => {
+        //         participant.tracks.forEach(publication => {
+        //             if (publication.track) {
+        //                 document.getElementById('local-media').appendChild(track.attach());
+        //             }
+        //         });
 
-        
+        //         participant.on('trackSubscribed', track => {
+        //             document.getElementById('local-media').appendChild(track.attach());
+        //         });
+        //     });
+
+        //     room.on('participantConnected', participant => {
+        //         console.log(`Participant "${participant.identity}" connected`);
+
+        //         participant.on('trackSubscribed', track => {
+        //             document.getElementById('local-media').appendChild(track.attach());
+        //         });
+        //         room.once('participantConnected', participant => {
+        //             console.log(`Participant "${participant.identity}" has connected to the Room`);
+        //         });
+        // }, error => {
+        //     console.error(`Unable to connect to Room: ${error.message}`);
+        // });
+
+        // });
 
 
-
-        });
-
+        //-------------------------------------------------------------------
         // const Video = require('twilio-video');
 
         // Video.connect(jwt, {
@@ -154,7 +149,7 @@ class Doctor extends Component {
 
     }
 
-    handleAppChange(event) {
+    handleChange(event) {
         const value = event.target.value;
         const name = event.target.name;
         this.setState({
@@ -176,11 +171,24 @@ class Doctor extends Component {
         axios.post('/api/Appointment/', appointment)
             .then(response => {
                 console.log('Updated', response.data);
-                this.setState({
-                    appointment: response.data,
-                })
             });
         $("#modal").modal('hide');
+    }
+
+    handleIssueSubmit(event) {
+        event.preventDefault();
+        let issue = {};
+        issue.doctor_id = this.props.doctor.id;
+        issue.title = this.state.titlei;
+        issue.date = this.state.datei;
+        issue.description = this.state.description;
+
+        console.log('submitted', issue);
+        axios.post('/api/Issue/', issue)
+            .then(response => {
+                console.log('Updated', response.data);
+            });
+        $("#modali").modal('hide');
     }
 
     renderTime() {
@@ -306,10 +314,11 @@ class Doctor extends Component {
                                 </div>
                                 <div class="card-footer bg-transparent">
                                     <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal">Schedule Meeting</a>
-                                    <a href="#" class="btn btn-outline-success" id="join">Send Message</a>
+                                    <a href="#" class="btn btn-outline-success" id="join" data-toggle="modal" data-target="#modali">Submit Issue</a>
                                 </div>
                             </div>
                         </div >
+
                         <div className="modal fade" id="modal" tabIndex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true" >
                             <div className="modal-dialog" role="document">
@@ -325,24 +334,24 @@ class Doctor extends Component {
                                             <div >
                                                 <span > Title:</span>
                                                 <input name="title" type="text" className="form-control" placeholder="Brief Description About the Meeting"
-                                                    onChange={this.handleAppChange} required />
+                                                    onChange={this.handleChange} required />
                                             </div>
                                             <div >
                                                 <span> Date:</span>
                                                 <input type="date" className="form-control"
-                                                    name="date" min={today} onChange={this.handleAppChange} required />
+                                                    name="date" min={today} onChange={this.handleChange} required />
                                             </div>
 
                                             <div >
                                                 <span>Time:</span>
-                                                <select name="time" className="form-control" onChange={this.handleAppChange} required >
+                                                <select name="time" className="form-control" onChange={this.handleChange} required >
                                                     {this.renderTime()}
                                                 </select>
                                             </div>
                                             <div >
                                                 <span>Additional Notes:</span>
                                                 <textarea type="text" className="form-control" placeholder="Additional Notes For Doctor"
-                                                    name="notes" onChange={this.handleAppChange} />
+                                                    name="notes" onChange={this.handleChange} />
                                             </div>
                                             <button type="submit" className="btn btn-primary mt-3" > Schedule </button>
                                         </form>
@@ -353,8 +362,45 @@ class Doctor extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div >
 
+                        <div className="modal fade" id="modali" tabIndex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalLabel">New Issue</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <form onSubmit={this.handleIssueSubmit}>
+                                            <div >
+                                                <span > Title:</span>
+                                                <input name="titlei" type="text" className="form-control" placeholder="Brief Description About the Meeting"
+                                                    onChange={this.handleChange} required />
+                                            </div>
+                                            <div >
+                                                <span> Date:</span>
+                                                <input type="date" className="form-control"
+                                                    name="datei" onChange={this.handleChange} required />
+                                            </div>
+
+                                            <div >
+                                                <span>Description:</span>
+                                                <textarea type="text" className="form-control" placeholder="Detailed Description About The Issue"
+                                                    name="description" onChange={this.handleChange} />
+                                            </div>
+                                            <button type="submit" className="btn btn-primary mt-3" > Submit </button>
+                                        </form>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div >
 
                 </div >
             </div >

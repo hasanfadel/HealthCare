@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 import Profile from './components/profile'
 import DoctorsList from './components/doctorsList'
 import Appointments from './components/appointments'
+import Issues from './components/issues'
 import Router1 from './router'
 
 
@@ -73,5 +74,19 @@ a4.appendChild(i4);
 li4.appendChild(a4);
 a4.addEventListener("click", () => {
     if (document.getElementById("root")) {
+    }
+});
+
+let li5 = document.getElementById("li5");
+let a5 = document.createElement("button");
+a5.className = "btn btn-primary";
+let i5 = document.createElement("i");
+// i4.className = "fas fa-sitemap";
+a5.textContent = "Issues   ";
+a5.appendChild(i5);
+li5.appendChild(a5);
+a5.addEventListener("click", () => {
+    if (document.getElementById("root")) {
+        ReactDOM.render(<Issues path="/Appointments" />, document.getElementById("root"));
     }
 });

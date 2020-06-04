@@ -31,4 +31,5 @@ Route::prefix('api')->group(function () {
     Route::resource('Patient', 'PatientController');
     Route::resource('Report', 'ReportController');
     Route::resource('User', 'UserController');
+    Route::resource('Issue', 'IssueController');
 });
