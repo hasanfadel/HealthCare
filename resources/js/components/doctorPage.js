@@ -218,6 +218,7 @@ class Doctor extends Component {
     }
 
     render() {
+        console.log(this.props.doctor);
         let gender = "";
         if (this.props.doctor.user.gender === 0) {
             gender = "male";

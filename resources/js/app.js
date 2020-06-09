@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 import Profile from './components/profile'
 import DoctorsList from './components/doctorsList'
 import Appointments from './components/appointments'
-import Issues from './components/issues'
+import Issues from './components/issuesList'
 import Router1 from './router'
 
 

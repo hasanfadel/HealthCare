@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Appointment;
 use App\Patient;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,12 +21,25 @@ class AppointmentController extends Controller
     public function index()
     {
         //
-        $doctors = Appointment::where('patient_id', '=', Auth::id())
-            ->with('doctor', 'doctor.user')
-            ->orderBy('date', 'ASC')
-            ->orderBy('time', 'ASC')
-            ->get();
-        return response()->json($doctors);
+        $user = User::where('id', Auth::id())->with('patients')->with('doctors')->first();
+        if ($user->role == 0) {
+            $appointments = Appointment::where('patient_id', '=', $user->patients->id)
+                ->with('doctor', 'doctor.user')
+                ->with('patient', 'patient.user')
+                ->orderBy('date', 'ASC')
+                ->orderBy('time', 'ASC')
+                ->get();
+            return response()->json(['appointment' => $appointments , 'role' => $user->role]);
+        }
+        if ($user->role == 1) {
+            $appointments = Appointment::where('doctor_id', '=', $user->doctors->id)
+                ->with('doctor', 'doctor.user')
+                ->with('patient', 'patient.user')
+                ->orderBy('date', 'ASC')
+                ->orderBy('time', 'ASC')
+                ->get();
+            return response()->json(['appointment' => $appointments , 'role' => $user->role]);
+        }
     }
 
     /**

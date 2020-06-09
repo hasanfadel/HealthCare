@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Doctor;
 use App\Patient;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller
 {
@@ -51,8 +54,15 @@ class PatientController extends Controller
     public function get()
     {
         //
-        $patient = Patient::where('user_id', auth()->id())->with('User')->first();
-        return response()->json($patient);
+        $user = User::where('id', Auth::id())->first();
+        if ($user->role == 0) {
+            $patient = Patient::where('user_id', auth()->id())->with('User')->first();
+            return response()->json($patient);
+        }
+        if($user->role == 1){
+            $doctor = Doctor::where('user_id', auth()->id())->with('User')->first();
+            return response()->json($doctor);
+        }
     }
 
     /**
@@ -93,7 +103,7 @@ class PatientController extends Controller
             $file->move($target_path, $image);
             $patient->filename = $image;
         }
-        
+
         if ($patient->save()) {
             return response()->json(['message' => 'Profile Updated', 'patient' => $patient]);
         }

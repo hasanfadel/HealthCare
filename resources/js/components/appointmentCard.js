@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
-import DoctorCard from './doctorCard'
-
+import Video from './Video';
 class AppointmentCard extends Component {
     constructor(props) {
         super(props)
         this.state = {
         };
+        this.renderVideo = this.renderVideo.bind(this);
     }
 
     componentDidMount() {
         // Get request for laravel api call
+    }
+
+    renderVideo() {
+        console.log('appointment: ', this.props.appointment);
+        // if (document.getElementById("root")) {
+        //     ReactDOM.render(<Video appointment={this.props.appointment} role={this.props.role} />, document.getElementById("root"));
+        // }
     }
 
     render() {
@@ -19,12 +27,12 @@ class AppointmentCard extends Component {
         return (
             <div class="card card-task">
                 <div class="progress">
-                    <div  class={n ?"progress-bar bg-primary" : "progress-bar bg-success"} role="progressbar" style={{ width: '100%' }}
+                    <div class={n ? "progress-bar bg-primary" : "progress-bar bg-success"} role="progressbar" style={{ width: '100%' }}
                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <div class="card-body">
                     <div class="card-title">
-                        <a href="#">
+                        <a href="#" onClick={n ? this.renderVideo : ""}>
                             <h6 data-filter-by="text">{this.props.appointment.title}</h6>
                         </a>
                         <span class="text-small">{this.props.appointment.doctor.user.name}</span>

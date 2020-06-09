@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Issue;
 use App\Patient;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,11 +18,23 @@ class IssueController extends Controller
     public function index()
     {
         //
-        $doctors = Issue::where('patient_id', '=', Auth::id())
-            ->with('doctors')
-            ->orderBy('created_at', 'ASC')
-            ->get();
-        return response()->json($doctors);
+        $user = User::where('id', Auth::id())->with('patients')->with('doctors')->first();
+        if ($user->role == 0) {
+            $issues = Issue::where('patient_id', '=', $user->patients->id)
+                ->with('doctors', 'doctors.user')
+                ->with('doctor', 'doctor.user')
+                ->orderBy('created_at', 'DESC')
+                ->get();
+            return response()->json($issues);
+        }
+        if ($user->role == 1) {
+            $issues = Issue::where('doctor_id', '=', $user->doctors->id)
+                ->with('doctors', 'doctors.user')
+                ->with('doctor', 'doctor.user')
+                ->orderBy('created_at', 'DESC')
+                ->get();
+            return response()->json($issues);
+        }
     }
 
     /**
@@ -46,6 +59,7 @@ class IssueController extends Controller
         $patient = Patient::where('user_id', Auth::id())->first();
         $issue = new Issue();
         $issue->patient_id = $patient->id;
+        $issue->doctor_id = $request->doctor_id;
         $issue->title = $request->title;
         $issue->date = $request->date;
         $issue->description = $request->description;
@@ -86,9 +100,28 @@ class IssueController extends Controller
      * @param  \App\Issue  $issue
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Issue $issue)
+    public function update(Request $request, $issue)
     {
         //
+        $iss = Issue::where('id', '=', $issue)->first();
+        $iss->doctor_id = $request->id;
+        // dd($iss);
+        if ($iss->save()) {
+            $iss->doctors()->attach($request->id);
+            return response()->json(['message' => 'Issue has been submitted', 'issue' => $iss]);
+        }
+        return response()->json(['message' => 'Issue not submitted']);
+    }
+
+    public function close(Request $request, $issue)
+    {
+        //
+        $iss = Issue::where('id', '=', $issue)->first();
+        $iss->closed = '1';
+        if ($iss->save()) {
+            return response()->json(['message' => 'Issue has been closed', 'issue' => $iss]);
+        }
+        return response()->json(['message' => 'Issue not updated']);
     }
 
     /**

@@ -26,13 +26,17 @@ class Issues extends Component {
     renderNewIssues() {
         let today = new Date();
         return this.state.issues.map((iss) => {
-            return (<IssueCard key={iss.id} new={1} issue={iss} />);
+            if (iss.closed == 0) {
+                return (<IssueCard key={iss.id} closed={0} issue={iss} doctor={iss.doctor} />);
+            }
         })
     }
-    renderOldIssues() {
+    renderClosedIssues() {
         let today = new Date();
         return this.state.issues.map((iss) => {
-            return (<IssueCard key={iss.id} new={0} issue={iss} />);
+            if (iss.closed == 1) {
+                return (<IssueCard key={iss.id} closed={1} issue={iss} doctor={iss.doctor} />);
+            }
         })
     }
 
@@ -59,8 +63,25 @@ class Issues extends Component {
                                 {this.renderNewIssues()}
                             </div>
                         </div>
+                        <div class="card-list">
+                            <div class="card-list-head">
+                                <h6>Closed Issues</h6>
+                                {/* <div class="dropdown">
+                                    <button class="btn-options" type="button" id="cardlist-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="#">Rename</a>
+                                        <a class="dropdown-item text-danger" href="#">Archive</a>
+                                    </div>
+                                </div> */}
+                            </div>
+                            <div class="card-list-body">
+                                {this.renderClosedIssues()}
+                            </div>
+                        </div>
                     </div>
-                    
+
 
                 </div >
             </div >

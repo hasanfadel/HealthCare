@@ -7,14 +7,18 @@ class Appointments extends Component {
         super(props)
         this.state = {
             appointments: [],
+            role: '',
         };
     }
 
     getAllAppointments() {
         axios.get('/api/Appointment/')
             .then(response => {
-                this.setState({ appointments: response.data });
-                console.log(response.data);
+                this.setState({ 
+                    appointments: response.data.appointment,
+                    role: response.data.role
+                });
+                console.log('response data:', response.data);
             });
     }
 
@@ -28,7 +32,7 @@ class Appointments extends Component {
         return this.state.appointments.map((app) => {
             let appDate = new Date("" + app.date + " " + app.time);
             if (appDate > today) {
-                return (<AppointmentCard key={app.id} new={1} appointment={app} />);
+                return (<AppointmentCard key={app.id} new={1} appointment={app} role={this.state.role} />);
             }
         })
     }

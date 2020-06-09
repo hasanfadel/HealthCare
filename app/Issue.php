@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Issue extends Model
 {
     //
-    public function patient()
+    public function patients()
     {
         return $this->belongsTo(Patient::class);
     }
@@ -15,5 +15,9 @@ class Issue extends Model
     public function doctors()
     {
         return $this->belongsToMany(Doctor::class);
+    }
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
     }
 }

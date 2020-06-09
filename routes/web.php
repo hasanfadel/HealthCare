@@ -24,6 +24,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('api')->group(function () {
 
     Route::get('/Patient/get/', 'PatientController@get');
+    Route::get('/Comment/{Issue}/', 'CommentController@get');
+    Route::put('/Issue/close/{Issue}', 'IssueController@close');
 
 
     Route::resource('Doctor', 'DoctorController');
@@ -32,4 +34,5 @@ Route::prefix('api')->group(function () {
     Route::resource('Report', 'ReportController');
     Route::resource('User', 'UserController');
     Route::resource('Issue', 'IssueController');
+    Route::resource('Comment', 'CommentController');
 });

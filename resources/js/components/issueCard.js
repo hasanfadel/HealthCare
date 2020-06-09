@@ -1,29 +1,38 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
+import Issue from './issuePage'
 
 class IssueCard extends Component {
     constructor(props) {
         super(props)
         this.state = {
         };
+        this.Issue = this.Issue.bind(this);
     }
 
     componentDidMount() {
         // Get request for laravel api call
     }
 
+    Issue() {
+        if (document.getElementById("root")) {
+            ReactDOM.render(<Issue issue={this.props.issue} doctor={this.props.doctor} closed={this.props.closed} />, document.getElementById("root"));
+        }
+    }
+
     render() {
-        let n = this.props.new;
+        let n = this.props.closed;
 
         return (
             <div class="card card-task">
                 <div class="progress">
-                    <div  class={n ?"progress-bar bg-primary" : "progress-bar bg-success"} role="progressbar" style={{ width: '100%' }}
+                    <div class={n ? "progress-bar bg-success" : "progress-bar bg-primary"} role="progressbar" style={{ width: '100%' }}
                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <div class="card-body">
                     <div class="card-title">
-                        <a href="#">
+                        <a href="#" onClick={this.Issue}>
                             <h6 data-filter-by="text">{this.props.issue.title}</h6>
                         </a>
                         <span class="text-small">{this.props.issue.description}</span>
