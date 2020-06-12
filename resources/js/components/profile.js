@@ -14,10 +14,11 @@ class Profile extends Component {
             disease: '',
             medicine: '',
             filename: '',
+            selectedFile: null,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handlePhotoSubmit = this.handlePhotoSubmit.bind(this);
+        this.handlePhotoChange = this.handlePhotoChange.bind(this);
 
     }
 
@@ -40,7 +41,7 @@ class Profile extends Component {
             });
 
     }
-    
+
     componentDidMount() {
         // Get request for laravel api call
         this.getProfile();
@@ -64,9 +65,22 @@ class Profile extends Component {
         patient.weight = this.state.weight;
         patient.disease = this.state.disease;
         patient.medicine = this.state.medicine;
+        const formData = new FormData()
+        formData.append(
+            'myFile',
+            this.state.selectedFile,
+            this.state.selectedFile.name
+        )
+        console.log('file', formData);
+        patient.filename = formData;
 
         console.log('submitted', patient);
-        axios.put('/api/Patient/' + this.state.profile.id, patient)
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        axios.put('/api/Patient/' + this.state.profile.id, patient, config)
             .then(response => {
                 console.log('Updated', response.data);
                 this.setState({
@@ -75,12 +89,8 @@ class Profile extends Component {
             });
     }
 
-    handlePhotoSubmit(event) {
-        const value = event.target.files[0];
-        const name = event.target.name;
-        this.setState({
-            [name]: value
-        })
+    handlePhotoChange(event) {
+        this.setState({ selectedFile: event.target.files[0] })
     }
 
     render() {
@@ -104,7 +114,7 @@ class Profile extends Component {
                             </div>
                             <div>
                                 <div class="custom-file custom-file-naked d-block mb-1">
-                                    <input type="file" name="filename" onChange={this.handlePhotoSubmit}
+                                    <input type="file" name="filename" onChange={this.handlePhotoChange}
                                         class="custom-file-input d-none" id="filename" />
                                     <label class="custom-file-label position-relative" for="filename">
                                         <span class="btn btn-primary">
@@ -143,7 +153,7 @@ class Profile extends Component {
                                             name="gender" class="form-control" readOnly />
                                     </div>
                                 </div>
-                                <form id="profile" onSubmit={this.handleSubmit}>
+                                <form id="profile" enctype="multipart/form-data" onSubmit={this.handleSubmit}>
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Date of Birth</label>
                                         <div class="col">

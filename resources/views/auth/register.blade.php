@@ -87,7 +87,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="role" class="col-md-4 col-form-label text-md-right">Choose Your Role</label>
+                            <label for="role" class="col-md-4 col-form-label text-md-right">Sign-up as:</label>
                             <div class="col-md-6">
                                 <select id="role" name="role" class="form-control" form="reg">
                                     <option value="0" selected>Patient</option>

@@ -10,10 +10,18 @@ class Issue extends Component {
             comments: [],
             doctors: [],
             refer: '',
+            appointment: '',
+            title: '',
+            date: '',
+            time: '',
+            notes: '',
+            startDate: '',
+            doctorName: '',
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleReferSubmit = this.handleReferSubmit.bind(this);
         this.handleIssueSubmit = this.handleIssueSubmit.bind(this);
+        this.handleAppSubmit = this.handleAppSubmit.bind(this);
         this.renderComments = this.renderComments.bind(this);
         this.closeIssue = this.closeIssue.bind(this);
     }
@@ -39,8 +47,12 @@ class Issue extends Component {
     }
 
     componentDidMount() {
+        console.log('Issue:', this.props);
         this.getAllComments();
         this.getAllDoctors();
+        this.setState({
+            doctorName: this.props.doctor.user.name
+        })
     }
 
     handleChange(event) {
@@ -63,9 +75,12 @@ class Issue extends Component {
         event.preventDefault();
         // let req = {};
         // req.id = this,state.refer;
-        axios.put('/api/Issue/' + this.props.issue.id, {'id' : this.state.refer})
+        axios.put('/api/Issue/' + this.props.issue.id, { 'id': this.state.refer })
             .then(response => {
                 console.log('Updated', response.data);
+                this.setState({
+                    doctorName: response.data.issue.doctor.user.name,
+                })
             });
         $("#modal-refer").modal('hide');
     }
@@ -86,12 +101,46 @@ class Issue extends Component {
         $("#modali").modal('hide');
     }
 
+    handleAppSubmit(event) {
+        event.preventDefault();
+        let appointment = {};
+        appointment.doctor_id = this.state.refer;
+        appointment.issue_id = this.props.issue.id;
+        appointment.title = this.state.title;
+        appointment.date = this.state.date;
+        appointment.time = this.state.time;
+        appointment.notes = this.state.notes;
+
+        console.log('submitted', appointment);
+        axios.post('/api/Appointment/', appointment)
+            .then(response => {
+                console.log('Updated', response.data);
+            });
+        $("#modal-meeting").modal('hide');
+    }
+
     closeIssue() {
         console.log('closing issue');
         axios.put('/api/Issue/close/' + this.props.issue.id)
             .then(response => {
                 console.log('Updated', response.data);
             });
+    }
+
+    renderTime() {
+        let start = new Date("December 25, 1995 " + this.props.doctor.start);
+        let end = new Date("December 25, 1995 " + this.props.doctor.end);
+        let startHour = start.getHours();
+        let endHour = end.getHours();
+        let items = [];
+        for (let i = startHour; i < endHour; i++) {
+            let val = "" + i + ":00:00";
+            let val1 = "" + i + ":30:00";
+            items.push(<option value={val}>{i}:00</option>);
+            items.push(<option value={val1}>{i}:30</option>);
+        }
+        items.push(<option value={"" + endHour + ":00:00"}>{endHour}:00</option>);
+        return items;
     }
 
     renderRefer() {
@@ -141,11 +190,22 @@ class Issue extends Component {
     }
 
     render() {
+        let today = new Date();
+        let dd = today.getDate();
+        let mm = today.getMonth() + 1; //January is 0!
+        let yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+        today = yyyy + '-' + mm + '-' + dd;
         return (
             <div className="main-container">
                 <div class="row justify-content-center mt-2">
 
-                    <div class="col-xl-8 col-lg-12">
+                    <div class="col-xl-9 col-lg-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group row align-items-center">
@@ -175,7 +235,7 @@ class Issue extends Component {
                                 <div class="form-group row">
                                     <label class="col-3">Referenced Doctor:</label>
                                     <div class="col">
-                                        <input type="text" value={this.props.doctor.user.name}
+                                        <input type="text" value={this.state.doctorName}
                                             name="doctor" class="form-control" readOnly />
                                     </div>
                                 </div>
@@ -187,7 +247,7 @@ class Issue extends Component {
                                     <div class="card-footer bg-transparent">
 
                                         <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-refer">Refer to Other Doctor</a>
-                                        <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-meeting">shcedule Meeting</a>
+                                        <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-meeting">Shcedule Appointment</a>
                                         <a href="#" class="btn btn-outline-danger" onClick={this.closeIssue} >Close Issue</a>
                                     </div>
                                 }
@@ -233,35 +293,41 @@ class Issue extends Component {
                                 </div>
                             </div>
 
-                            {/* <div className="modal fade" id="modali" tabIndex="-1" role="dialog"
+                            <div className="modal fade" id="modal-meeting" tabIndex="-1" role="dialog"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true" >
                                 <div className="modal-dialog" role="document">
                                     <div className="modal-content">
                                         <div className="modal-header">
-                                            <h5 className="modal-title" id="exampleModalLabel">New Issue</h5>
+                                            <h5 className="modal-title" id="exampleModalLabel">New Appointment</h5>
                                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div className="modal-body">
-                                            <form onSubmit={this.handleIssueSubmit}>
+                                            <form onSubmit={this.handleAppSubmit}>
                                                 <div >
                                                     <span > Title:</span>
-                                                    <input name="titlei" type="text" className="form-control" placeholder="Brief Description About the Meeting"
+                                                    <input name="title" type="text" className="form-control" placeholder="Brief Description About the Meeting"
                                                         onChange={this.handleChange} required />
                                                 </div>
                                                 <div >
                                                     <span> Date:</span>
                                                     <input type="date" className="form-control"
-                                                        name="datei" onChange={this.handleChange} required />
+                                                        name="date" min={today} onChange={this.handleChange} required />
                                                 </div>
 
                                                 <div >
-                                                    <span>Description:</span>
-                                                    <textarea type="text" className="form-control" placeholder="Detailed Description About The Issue"
-                                                        name="description" onChange={this.handleChange} />
+                                                    <span>Time:</span>
+                                                    <select name="time" className="form-control" onChange={this.handleChange} required >
+                                                        {this.renderTime()}
+                                                    </select>
                                                 </div>
-                                                <button type="submit" className="btn btn-primary mt-3" > Submit </button>
+                                                <div >
+                                                    <span>Additional Notes:</span>
+                                                    <textarea type="text" className="form-control" placeholder="Additional Notes For Doctor"
+                                                        name="notes" onChange={this.handleChange} />
+                                                </div>
+                                                <button type="submit" className="btn btn-primary mt-3" > Schedule </button>
                                             </form>
                                         </div>
                                         <div className="modal-footer">
@@ -269,7 +335,8 @@ class Issue extends Component {
                                         </div>
                                     </div>
                                 </div>
-                            </div> */}
+                            </div>
+
                         </div >
 
                     </div >

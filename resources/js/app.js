@@ -6,6 +6,7 @@ import Profile from './components/profile'
 import DoctorsList from './components/doctorsList'
 import Appointments from './components/appointments'
 import Issues from './components/issuesList'
+import Stats from './components/statistics'
 import Router1 from './router'
 
 
@@ -88,5 +89,19 @@ li5.appendChild(a5);
 a5.addEventListener("click", () => {
     if (document.getElementById("root")) {
         ReactDOM.render(<Issues path="/Appointments" />, document.getElementById("root"));
+    }
+});
+
+let li6 = document.getElementById("li6");
+let a6 = document.createElement("button");
+a6.className = "btn btn-primary";
+let i6 = document.createElement("i");
+// i4.className = "fas fa-sitemap";
+a6.textContent = "Statistics   ";
+a6.appendChild(i6);
+li6.appendChild(a6);
+a6.addEventListener("click", () => {
+    if (document.getElementById("root")) {
+        ReactDOM.render(<Stats path="/Appointments" />, document.getElementById("root"));
     }
 });

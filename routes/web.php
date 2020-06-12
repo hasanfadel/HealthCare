@@ -35,4 +35,5 @@ Route::prefix('api')->group(function () {
     Route::resource('User', 'UserController');
     Route::resource('Issue', 'IssueController');
     Route::resource('Comment', 'CommentController');
+    Route::resource('Statistic', 'StatisticController');
 });

@@ -16,9 +16,9 @@ class AppointmentCard extends Component {
 
     renderVideo() {
         console.log('appointment: ', this.props.appointment);
-        // if (document.getElementById("root")) {
-        //     ReactDOM.render(<Video appointment={this.props.appointment} role={this.props.role} />, document.getElementById("root"));
-        // }
+        if (document.getElementById("root")) {
+            // ReactDOM.render(<Video appointment={this.props.appointment} role={this.props.role} />, document.getElementById("root"));
+        }
     }
 
     render() {
@@ -53,8 +53,6 @@ class AppointmentCard extends Component {
                                     <i class="material-icons">more_vert</i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">Edit</a>
-                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-danger" href="#">Delete</a>
                                 </div>
                             </div>

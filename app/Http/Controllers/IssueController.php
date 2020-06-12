@@ -108,7 +108,7 @@ class IssueController extends Controller
         // dd($iss);
         if ($iss->save()) {
             $iss->doctors()->attach($request->id);
-            return response()->json(['message' => 'Issue has been submitted', 'issue' => $iss]);
+            return response()->json(['message' => 'Issue has been submitted', 'issue' => $iss->with('doctor', 'doctor.user')->first()]);
         }
         return response()->json(['message' => 'Issue not submitted']);
     }

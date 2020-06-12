@@ -94,6 +94,7 @@ class AppointmentController extends Controller
         $patient = Patient::where('user_id', Auth::id())->first();
         $appointment = new Appointment();
         $appointment->doctor_id = $request->doctor_id;
+        $appointment->issue_id = $request->issue_id;
         $appointment->patient_id = $patient->id;
         $appointment->title = $request->title;
         $appointment->date = $request->date;

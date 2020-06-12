@@ -314,7 +314,7 @@ class Doctor extends Component {
                                     </div>
                                 </div>
                                 <div class="card-footer bg-transparent">
-                                    <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal">Schedule Meeting</a>
+                                    {/* <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal">Schedule Meeting</a> */}
                                     <a href="#" class="btn btn-outline-success" id="join" data-toggle="modal" data-target="#modali">Submit Issue</a>
                                 </div>
                             </div>

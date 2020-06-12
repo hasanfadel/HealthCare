@@ -47,19 +47,17 @@ class IssueCard extends Component {
                         </div>
 
                         {n ?
+                            <></>
+                            :
                             <div class="dropdown card-options">
                                 <button class="btn-options" type="button" id="task-dropdown-button-2"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="material-icons">more_vert</i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">Edit</a>
-                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-danger" href="#">Delete</a>
                                 </div>
                             </div>
-                            :
-                            <></>
                         }
                     </div>
                 </div>
