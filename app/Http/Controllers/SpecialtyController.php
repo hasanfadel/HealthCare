@@ -15,6 +15,8 @@ class SpecialtyController extends Controller
     public function index()
     {
         //
+        $specs = Specialty::where('id', '>=', 0)->get();
+        return response()->json($specs);
     }
 
     /**
@@ -44,9 +46,11 @@ class SpecialtyController extends Controller
      * @param  \App\Specialty  $specialty
      * @return \Illuminate\Http\Response
      */
-    public function show(Specialty $specialty)
+    public function show( $specialty)
     {
         //
+        $specs = Specialty::where('id', '=', $specialty)->with('doctors', 'doctors.user', 'doctors.specialties')->get();
+        return response()->json($specs);
     }
 
     /**

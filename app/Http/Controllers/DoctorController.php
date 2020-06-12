@@ -19,6 +19,13 @@ class DoctorController extends Controller
         return response()->json($doctors);
     }
 
+    public function get($spec)
+    {
+        //
+        $doctors = Doctor::where('id', '>=', 0)->with('user')->with('specialties')->where('specialties.id', '=' , $spec)->get();
+        return response()->json($doctors);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
