@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Doctor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DoctorController extends Controller
 {
@@ -16,7 +17,7 @@ class DoctorController extends Controller
     {
         //
         $doctors = Doctor::where('id', '>=', 0)->with('user')->with('specialties')->get();
-        return response()->json($doctors);
+        return response()->json(['doctors' => $doctors, 'patient_id' => Auth::id()]);
     }
 
     public function get($spec)

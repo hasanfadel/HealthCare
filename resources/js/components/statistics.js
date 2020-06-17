@@ -23,6 +23,7 @@ class Stats extends Component {
             .then(response => {
                 this.setState({ stats: response.data });
                 console.log(response.data);
+                console.log('get stats', response.data)
             });
     }
 
@@ -52,6 +53,7 @@ class Stats extends Component {
             .then(response => {
                 console.log('Updated', response.data);
                 this.setState({
+                    stats: response.data
                 })
                 alert("Uploaded Successfully");
             });

@@ -1,46 +1,64 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-    },
-    "devDependencies": {
-        "@babel/preset-react": "^7.0.0",
-        "axios": "^0.19",
-        "bootstrap": "^4.5.0",
-        "cross-env": "^7.0",
-        "jquery": "^3.2",
-        "laravel-mix": "^5.0.1",
-        "lodash": "^4.17.13",
-        "popper.js": "^1.12",
-        "react": "^16.2.0",
-        "react-dom": "^16.2.0",
-        "resolve-url-loader": "^3.1.0",
-        "sass": "^1.15.2",
-        "sass-loader": "^8.0.0"
-    },
-    "dependencies": {
-        "chart.js": "^2.9.3",
-        "flux": "^3.1.3",
-        "fs": "0.0.1-security",
-        "makeplans": "^1.1.0",
-        "mdbootstrap": "^4.18.0",
-        "net": "^1.0.2",
-        "react-datepicker": "^2.16.0",
-        "react-ga": "^2.7.0",
-        "react-quill": "^1.3.5",
-        "react-router-dom": "^5.1.2",
-        "react-select": "^3.1.0",
-        "recharts": "^1.8.5",
-        "shards-react": "^1.0.3",
-        "timekit-booking": "^2.6.0",
-        "tls": "0.0.1",
-        "twilio": "^3.44.0",
-        "twilio-video": "^2.5.0"
-    }
+  "private": true,
+  "scripts": {
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "axios": "^0.19",
+    "bootstrap": "^4.5.0",
+    "cross-env": "^7.0",
+    "jquery": "^3.2",
+    "laravel-mix": "^5.0.1",
+    "lodash": "^4.17.13",
+    "popper.js": "^1.12",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "resolve-url-loader": "^3.1.0",
+    "sass": "^1.15.2",
+    "sass-loader": "^8.0.0"
+  },
+  "dependencies": {
+    "chart.js": "^2.9.3",
+    "firebase": "^7.15.1",
+    "flux": "^3.1.3",
+    "fs": "0.0.1-security",
+    "makeplans": "^1.1.0",
+    "mdbootstrap": "^4.18.0",
+    "net": "^1.0.2",
+    "react-datepicker": "^2.16.0",
+    "react-ga": "^2.7.0",
+    "react-quill": "^1.3.5",
+    "react-router-dom": "^5.1.2",
+    "react-select": "^3.1.0",
+    "recharts": "^1.8.5",
+    "shards-react": "^1.0.3",
+    "timekit-booking": "^2.6.0",
+    "tls": "0.0.1",
+    "twilio": "^3.44.0",
+    "twilio-video": "^2.5.0"
+  },
+  "name": "healthcare",
+  "description": "<p align=\"center\"><img src=\"https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg\" width=\"400\"></p>",
+  "version": "1.0.0",
+  "main": "webpack.mix.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hasanfadel/HealthCare.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hasanfadel/HealthCare/issues"
+  },
+  "homepage": "https://github.com/hasanfadel/HealthCare#readme"
 }

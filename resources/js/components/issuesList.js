@@ -14,7 +14,7 @@ class Issues extends Component {
         axios.get('/api/Issue/')
             .then(response => {
                 this.setState({ issues: response.data });
-                console.log(response.data);
+                console.log('IssuesList', response.data);
             });
     }
 

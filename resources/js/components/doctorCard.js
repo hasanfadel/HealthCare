@@ -47,7 +47,7 @@ class DoctorCard extends Component {
 
     doctor() {
         if (document.getElementById("root")) {
-            ReactDOM.render(<Doctor doctor={this.props.doctor} />, document.getElementById("root"));
+            ReactDOM.render(<Doctor doctor={this.props.doctor} patient_id={this.props.patient_id} />, document.getElementById("root"));
         }
     }
 

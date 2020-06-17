@@ -9,6 +9,7 @@ class DoctorsList extends Component {
             doctors: [],
             specialties: [],
             filter: '',
+            patient_id: '',
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleFilterSubmit = this.handleFilterSubmit.bind(this);
@@ -17,7 +18,10 @@ class DoctorsList extends Component {
     getAllDoctors() {
         axios.get('/api/Doctor/')
             .then(response => {
-                this.setState({ doctors: response.data });
+                this.setState({ 
+                    doctors: response.data.doctors,
+                    patient_id: response.data.patient_id    
+                });
                 console.log('doctors', response.data);
             });
     }
@@ -59,7 +63,7 @@ class DoctorsList extends Component {
 
     renderDoc() {
         return this.state.doctors.map((doc) => {
-            return (<DoctorCard key={doc.id} doctor={doc} />)
+            return (<DoctorCard key={doc.id} doctor={doc} patient_id={this.state.patient_id} />)
         })
     }
 

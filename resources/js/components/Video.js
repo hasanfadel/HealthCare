@@ -102,7 +102,9 @@
 //         return (
 //             <>
 //                 {this.joinMeeting()}
-//                 <a href="" class="btn btn-outline-danger" >Leave Meeting</a>
+//                 <div>
+//                     <a href="" class="btn btn-outline-danger" >Leave Meeting</a>
+//                 </div>
 //             </>
 //         );
 //     }
@@ -115,7 +117,7 @@
 //         let dateTime = new Date('' + this.props.appointment.date + ' ' + this.props.appointment.time);
 //         let sss = min_minutes(dateTime, 30);
 //         let flag = 0;
-//         if (today > sss) {
+//         if (today < sss) {
 //             flag = 1;
 //         }
 //         else { flag = 0 }

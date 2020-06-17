@@ -22,6 +22,7 @@ class AppointmentCard extends Component {
     }
 
     render() {
+        console.log(this.props);
         let n = this.props.new;
 
         return (

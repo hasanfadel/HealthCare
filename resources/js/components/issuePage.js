@@ -32,7 +32,7 @@ class Issue extends Component {
                 this.setState({
                     comments: response.data,
                 });
-                console.log(response.data);
+                console.log('comment', response.data);
             });
     }
 
@@ -40,7 +40,7 @@ class Issue extends Component {
         axios.get('/api/Doctor/')
             .then(response => {
                 this.setState({
-                    doctors: response.data,
+                    doctors: response.data.doctors,
                 });
                 console.log('doctors', response.data);
             });

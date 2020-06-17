@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+let firebase1 = require('firebase');
 
 class Doctor extends Component {
     constructor(props) {
@@ -15,137 +16,20 @@ class Doctor extends Component {
             titlei: '',
             description: '',
             datei: '',
+            message: '',
+            chats: [],
+            flag: 1,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleAppSubmit = this.handleAppSubmit.bind(this);
         this.handleIssueSubmit = this.handleIssueSubmit.bind(this);
+        this.handleChatSubmit = this.handleChatSubmit.bind(this);
+        this.renderChat = this.renderChat.bind(this);
+        // this.startChat = this.startChat.bind(this);
+        this.listenChat();
     }
 
     componentDidMount() {
-
-        // let AccessToken = require('twilio').jwt.AccessToken;
-        // let VideoGrant = AccessToken.VideoGrant;
-
-        // // Substitute your Twilio AccountSid and ApiKey details
-        // let ACCOUNT_SID = 'AC2ea396faca0e2faefbd776a568edb342';
-        // let API_KEY_SID = 'SKacd0f3a5819afc6508edd280a01c2fee';
-        // let API_KEY_SECRET = 'wO66YGo4TQlsQbDsWfIr50c2bAtNdkXQ';
-
-        // // Create an Access Token
-        // let accessToken = new AccessToken(
-        //     ACCOUNT_SID,
-        //     API_KEY_SID,
-        //     API_KEY_SECRET
-        // );
-
-        // // Set the Identity of this token
-        // accessToken.identity = 'patient' + this.props.doctor.id;
-
-        // // Grant access to Video
-        // let grant = new VideoGrant();
-        // grant.room = 'Appointment';
-        // accessToken.addGrant(grant);
-
-        // // Serialize the token as a JWT
-        // let jwt = accessToken.toJwt();
-        // console.log(jwt);
-
-
-
-        // const { connect, createLocalVideoTrack } = require('twilio-video');
-
-        // // Option 1
-        // connect(jwt, {
-        //     audio: true,
-        //     name: 'Appointment',
-        //     video: { width: 640 }
-
-        // }).then(room => {
-        //     console.log(`Successfully joined a Room: ${room}`);
-        //     console.log(`Connected to Room: ${room.name}`);
-        //     console.log("participants", room.participants);
-        //     room.participants.forEach(participant => {
-        //         participant.tracks.forEach(publication => {
-        //             if (publication.track) {
-        //                 document.getElementById('local-media').appendChild(track.attach());
-        //             }
-        //         });
-
-        //         participant.on('trackSubscribed', track => {
-        //             document.getElementById('local-media').appendChild(track.attach());
-        //         });
-        //     });
-
-        //     room.on('participantConnected', participant => {
-        //         console.log(`Participant "${participant.identity}" connected`);
-
-        //         participant.on('trackSubscribed', track => {
-        //             document.getElementById('local-media').appendChild(track.attach());
-        //         });
-        //         room.once('participantConnected', participant => {
-        //             console.log(`Participant "${participant.identity}" has connected to the Room`);
-        //         });
-        // }, error => {
-        //     console.error(`Unable to connect to Room: ${error.message}`);
-        // });
-
-        // });
-
-
-        //-------------------------------------------------------------------
-        // const Video = require('twilio-video');
-
-        // Video.connect(jwt, {
-        //     name: 'room-name',
-        //     audio: true,
-        //     maxAudioBitrate: 16000, //For music remove this line
-        //     video: { height: 720, frameRate: 24, width: 1280 }
-
-        // }).then(room => {
-        //     console.log('Connected to Room "%s"', room.name);
-
-        //     room.participants.forEach(participantConnected);
-        //     room.on('participantConnected', participantConnected);
-
-        //     room.on('participantDisconnected', participantDisconnected);
-        //     room.once('disconnected', error => room.participants.forEach(participantDisconnected));
-        // }, error => {
-        //     console.error(`Unable to connect to Room: ${ error.message }`);
-        // });
-
-
-        // function participantConnected(participant) {
-        //     console.log('Participant "%s" connected', participant.identity);
-
-        //     const div = document.createElement('div');
-        //     div.id = participant.sid;
-        //     div.innerText = participant.identity;
-
-        //     participant.on('trackSubscribed', track => trackSubscribed(div, track));
-        //     participant.on('trackUnsubscribed', trackUnsubscribed);
-
-        //     participant.tracks.forEach(publication => {
-        //         if (publication.isSubscribed) {
-        //             trackSubscribed(div, publication.track);
-        //         }
-        //     });
-
-        //     document.body.appendChild(div);
-        // }
-
-        // function participantDisconnected(participant) {
-        //     console.log('Participant "%s" disconnected', participant.identity);
-        //     document.getElementById(participant.sid).remove();
-        // }
-
-        // function trackSubscribed(div, track) {
-        //     div.appendChild(track.attach());
-        // }
-
-        // function trackUnsubscribed(track) {
-        //     track.detach().forEach(element => element.remove());
-        // }
-
 
     }
 
@@ -189,6 +73,70 @@ class Doctor extends Component {
                 console.log('Updated', response.data);
             });
         $("#modali").modal('hide');
+    }
+    handleChatSubmit(event) {
+        event.preventDefault();
+        let chat_id = this.props.doctor.id;
+        let message = this.state.message;
+        if (message) {
+            let newItem = {
+                user: this.props.patient_id,
+                message: message,
+            }
+            let newMessageRef = firebase1.database().ref('chat/' + chat_id).push(newItem);
+            // newMessageRef.set({
+            //     message
+            // });
+            this.setState({
+                message: '',
+                flag: 0,
+            });
+        }
+    }
+
+
+    listenChat() {
+        let chat_id = this.props.doctor.id;
+        let commentsRef = firebase1.database().ref('chat/' + chat_id);
+        commentsRef.limitToLast(10)
+            .on('value', message => {
+                console.log('value', message.val())
+                this.setState({
+                    chats: Object.values(message.val()),
+                });
+            });
+        console.log('chats', this.state.chats);
+    }
+
+    renderChat() {
+        return this.state.chats.map((item) => {
+            let f = item.user;
+            console.log('f', f);
+            if (item.user == '1') {
+                return (
+                    <>
+                        <div class="d-flex justify-content-end mb-4">
+                            <div class="msg_cotainer_send">
+                                {item.message}
+                            </div>
+                        </div>
+                    </>
+
+                )
+            }
+            else {
+                return (
+                    <>
+                        < div class="d-flex justify-content-start mb-4" >
+                            <div class="msg_cotainer" >
+                                {item.message}
+                            </div>
+                        </div >
+                    </>
+                )
+            }
+        }
+        )
     }
 
     renderTime() {
@@ -315,10 +263,53 @@ class Doctor extends Component {
                                 </div>
                                 <div class="card-footer bg-transparent">
                                     {/* <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal">Schedule Meeting</a> */}
-                                    <a href="#" class="btn btn-outline-success" id="join" data-toggle="modal" data-target="#modali">Submit Issue</a>
+                                    <a href="#" class="btn btn-outline-primary" id="join" data-toggle="modal" data-target="#modali">Submit Issue</a>
+                                    <a href="#" class="btn btn-outline-success" id="join" data-toggle="modal" data-target="#modal-chat" >Send Message</a>
                                 </div>
                             </div>
                         </div >
+
+                        <div className="modal fade" id="modal-chat" tabIndex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalLabel">{this.props.doctor.user.name}</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+
+                                        <div class=" chat">
+                                            <div class="card">
+
+                                                <div class="card-body msg_card_body">
+                                                    {this.renderChat()}
+
+                                                </div>
+
+                                                <div class="card-footer">
+                                                    <form onSubmit={this.handleChatSubmit}>
+                                                        <div class="input-group">
+                                                            <textarea name="message" value={this.state.message} class="form-control type_msg" onChange={this.handleChange}
+                                                                placeholder="Type your message..." ></textarea>
+                                                            <div class="input-group-append" >
+                                                                <button class="input-group-text send_btn" type="submit">
+                                                                    <i class="fas fa-location-arrow"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div className="modal fade" id="modal" tabIndex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true" >
@@ -378,7 +369,7 @@ class Doctor extends Component {
                                         <form onSubmit={this.handleIssueSubmit}>
                                             <div >
                                                 <span > Title:</span>
-                                                <input name="titlei" type="text" className="form-control" placeholder="Brief Description About the Meeting"
+                                                <input name="titlei" type="text" className="form-control" placeholder="Brief Description About the Issue"
                                                     onChange={this.handleChange} required />
                                             </div>
                                             <div >

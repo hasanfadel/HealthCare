@@ -26,7 +26,7 @@ class StatisticController extends Controller
             return response()->json($stats);
         }
         if ($user->role == 1) {
-            
+
             return response()->json(['message' => 'No statistics available']);
         }
     }
@@ -59,7 +59,11 @@ class StatisticController extends Controller
         $stat->date = $request->date;
 
         if ($stat->save()) {
-            return response()->json(['message' => 'Stat has been submitted', 'stat' => $stat]);
+            $user = User::where('id', Auth::id())->with('patients')->with('doctors')->first();
+            $stats = Statistic::where('patient_id', '=', $user->patients->id)
+                ->orderBy('date', 'ASC')
+                ->get();
+            return response()->json($stats);
         }
         return response()->json(['message' => 'stat not submitted']);
     }

@@ -1,4 +1,5 @@
 require("./bootstrap");
+require('jquery')
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -9,8 +10,37 @@ import Issues from './components/issuesList'
 import Stats from './components/statistics'
 import Router1 from './router'
 
+let firebase = require('firebase');
+// const firebase = require('firebase/app');
+// require('firebase/<database>');
 
-require('jquery')
+let firebaseConfig = {
+    apiKey: "AIzaSyBCu2eNHET6PeSSeMTW_neX9r0lLdCIW80",
+    authDomain: "healthcare-277011.firebaseapp.com",
+    databaseURL: "https://healthcare-277011.firebaseio.com",
+    projectId: "healthcare-277011",
+    storageBucket: "healthcare-277011.appspot.com",
+    messagingSenderId: "907468807508",
+    appId: "1:907468807508:web:86b0ba31a49d39a6913cc1",
+    measurementId: "G-EZ7WS1JF1G"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+
+
+
+
+// rules_version = '2';
+// service cloud.firestore {
+//   match /databases/{database}/documents {
+//     match /{document=**} {
+//       allow read, write: if false;
+//     }
+//   }
+// }
+
+
 
 // if (document.getElementById("all")) {
 //     ReactDOM.render(<Router1 />, document.getElementById("all"));
@@ -65,18 +95,18 @@ a3.addEventListener("click", () => {
     }
 });
 
-let li4 = document.getElementById("li4");
-let a4 = document.createElement("button");
-a4.className = "btn btn-primary";
-let i4 = document.createElement("i");
-// i4.className = "fas fa-sitemap";
-a4.textContent = "Reports   ";
-a4.appendChild(i4);
-li4.appendChild(a4);
-a4.addEventListener("click", () => {
-    if (document.getElementById("root")) {
-    }
-});
+// let li4 = document.getElementById("li4");
+// let a4 = document.createElement("button");
+// a4.className = "btn btn-primary";
+// let i4 = document.createElement("i");
+// // i4.className = "fas fa-sitemap";
+// a4.textContent = "Reports   ";
+// a4.appendChild(i4);
+// li4.appendChild(a4);
+// a4.addEventListener("click", () => {
+//     if (document.getElementById("root")) {
+//     }
+// });
 
 let li5 = document.getElementById("li5");
 let a5 = document.createElement("button");
@@ -97,7 +127,7 @@ let a6 = document.createElement("button");
 a6.className = "btn btn-primary";
 let i6 = document.createElement("i");
 // i4.className = "fas fa-sitemap";
-a6.textContent = "Statistics   ";
+a6.textContent = "Charts   ";
 a6.appendChild(i6);
 li6.appendChild(a6);
 a6.addEventListener("click", () => {
@@ -105,3 +135,4 @@ a6.addEventListener("click", () => {
         ReactDOM.render(<Stats path="/Appointments" />, document.getElementById("root"));
     }
 });
+
