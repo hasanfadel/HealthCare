@@ -86,23 +86,23 @@ class PatientController extends Controller
     public function update(Request $request, Patient $patient)
     {
         //
-        $patient = Patient::findOrFail($request->id);
+        $patient = Patient::where('user_id', Auth::id())->first();
         $patient->birth = $request->birth;
         $patient->height = $request->height;
         $patient->weight = $request->weight;
         $patient->disease = $request->disease;
         $patient->medicine = $request->medicine;
-        $patient->filename = $request->filename;
-        if ($request->hasFile('filename')) {
-            //
-            $f = $request->file('filename')->extension();
-            $file = request('filename');
-            $image = time() . time() . '.' . $f;
+        // $patient->filename = $request->filename;
+        // if ($request->hasFile('filename')) {
+        //     //
+        //     $f = $request->file('filename')->extension();
+        //     $file = request('filename');
+        //     $image = time() . time() . '.' . $f;
 
-            $target_path = public_path('/images/');
-            $file->move($target_path, $image);
-            $patient->filename = $image;
-        }
+        //     $target_path = public_path('/images/');
+        //     $file->move($target_path, $image);
+        //     $patient->filename = $image;
+        // }
 
         if ($patient->save()) {
             return response()->json(['message' => 'Profile Updated', 'patient' => $patient]);

@@ -20,6 +20,7 @@ class CreateIssuesTable extends Migration
             $table->string('title');
             $table->longText('description');
             $table->date('date');
+            $table->string('img_src');
             $table->boolean('closed')->default('0');// 1->Closed
             $table->timestamps();
 

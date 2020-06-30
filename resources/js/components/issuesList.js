@@ -48,7 +48,7 @@ class Issues extends Component {
                     <div class="content-list-body">
                         <div class="card-list">
                             <div class="card-list-head">
-                                <h6>Issues</h6>
+                                <h6>Health Problems</h6>
                                 {/* <div class="dropdown">
                                     <button class="btn-options" type="button" id="cardlist-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="material-icons">more_vert</i>
@@ -65,7 +65,7 @@ class Issues extends Component {
                         </div>
                         <div class="card-list">
                             <div class="card-list-head">
-                                <h6>Closed Issues</h6>
+                                <h6>Closed Problems</h6>
                                 {/* <div class="dropdown">
                                     <button class="btn-options" type="button" id="cardlist-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="material-icons">more_vert</i>

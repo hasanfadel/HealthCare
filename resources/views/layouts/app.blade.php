@@ -2,6 +2,17 @@
 <html lang="en">
 
 <head>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52115242-14"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-52115242-14');
+    </script>
+
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -34,6 +45,10 @@
     <script type="text/javascript" src="//cdn.timekit.io/booking-js/v2/booking.min.js" defer></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52115242-14"></script>
     <script src="//media.twiliocdn.com/sdk/js/video/releases/2.4.0/twilio-video.min.js"></script>
+
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
     {{-- API SID: SKacd0f3a5819afc6508edd280a01c2fee      Secret: wO66YGo4TQlsQbDsWfIr50c2bAtNdkXQ --}}
 
 

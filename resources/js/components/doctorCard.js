@@ -68,7 +68,7 @@ class DoctorCard extends Component {
         } else {
             gender = "female";
         }
-        let image = this.props.doctor.filename;
+        let image = "/images/" + this.props.doctor.filename;
 
         let modalId = "modal-".concat(this.props.doctor.id);
         let modalBtn = "#modal-".concat(this.props.doctor.id);

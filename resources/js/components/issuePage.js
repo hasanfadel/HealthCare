@@ -51,7 +51,8 @@ class Issue extends Component {
         this.getAllComments();
         this.getAllDoctors();
         this.setState({
-            doctorName: this.props.doctor.user.name
+            doctorName: this.props.doctor.user.name,
+            refer: this.props.doctor.id
         })
     }
 
@@ -155,19 +156,34 @@ class Issue extends Component {
 
     }
 
+    renderImage() {
+            let src = "/uploads/" + this.props.issue.img_src;
+            return (
+                <div  className="col-lg-4 col-md-4 col-sm-6 mb-2">
+                    <img
+                        className="img-fluid rounded mx-auto"
+                        src={src}
+                        style={{ maxHeight: "200px" }}
+                        alt=""
+                    ></img>
+                </div>
+            );
+
+    }
+
     renderComments() {
         return this.state.comments.map((com) => {
             return (
                 <div class="content-list-body">
 
-                    <div class="card card-note">
+                    <div class="card-note">
                         <div class="card-header">
                             <div class="media align-items-center">
                                 <div class="media-body">
                                     <h6 class="mb-0" data-filter-by="text">{com.doctors.user.name}</h6>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center">
+                            {/* <div class="d-flex align-items-center">
                                 <span data-filter-by="text">{com.created_at}</span>
                                 <div class="ml-1 dropdown card-options">
                                     <button class="btn-options" type="button" id="note-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -178,7 +194,7 @@ class Issue extends Component {
                                         <a class="dropdown-item text-danger" href="#">Delete</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div class="card-body" data-filter-by="text">
                             <p>{com.comment}</p>
@@ -233,12 +249,17 @@ class Issue extends Component {
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-3">Referenced Doctor:</label>
+                                    <label class="col-3">Consulted Doctor:</label>
                                     <div class="col">
                                         <input type="text" value={this.state.doctorName}
                                             name="doctor" class="form-control" readOnly />
                                     </div>
                                 </div>
+
+                                <div>
+                                    {this.renderImage()}
+                                </div>
+
 
 
                                 {this.props.closed ?
@@ -246,9 +267,9 @@ class Issue extends Component {
                                     :
                                     <div class="card-footer bg-transparent">
 
-                                        <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-refer">Refer to Other Doctor</a>
+                                        <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-refer">Consult Another Doctor</a>
                                         <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-meeting">Shcedule Appointment</a>
-                                        <a href="#" class="btn btn-outline-danger" onClick={this.closeIssue} >Close Issue</a>
+                                        <a href="#" class="btn btn-outline-danger" onClick={this.closeIssue} >Close Problem</a>
                                     </div>
                                 }
                             </div>
@@ -272,7 +293,7 @@ class Issue extends Component {
                                 <div className="modal-dialog" role="document">
                                     <div className="modal-content">
                                         <div className="modal-header">
-                                            <h5 className="modal-title" id="exampleModalLabel">Reference Other Doctor</h5>
+                                            <h5 className="modal-title" id="exampleModalLabel">Consult Another Doctor</h5>
                                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -283,7 +304,7 @@ class Issue extends Component {
                                                     <span > Select Preferred Doctor:</span>
                                                     {this.renderRefer()}
                                                 </div>
-                                                <button type="submit" className="btn btn-primary mt-3" > Refer </button>
+                                                <button type="submit" className="btn btn-primary mt-3" > Consult </button>
                                             </form>
                                         </div>
                                         <div className="modal-footer">

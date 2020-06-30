@@ -16,11 +16,13 @@ class Doctor extends Component {
             titlei: '',
             description: '',
             datei: '',
+            image: "",
             message: '',
             chats: [],
             flag: 1,
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleChangeFile = this.handleChangeFile.bind(this);
         this.handleAppSubmit = this.handleAppSubmit.bind(this);
         this.handleIssueSubmit = this.handleIssueSubmit.bind(this);
         this.handleChatSubmit = this.handleChatSubmit.bind(this);
@@ -33,6 +35,22 @@ class Doctor extends Component {
 
     }
 
+    createImage(file) {
+        let reader = new FileReader();
+        reader.onload = e => {
+            this.setState({
+                image: e.target.result
+            });
+        };
+        reader.readAsDataURL(file);
+    }
+
+    handleChangeFile(event) {
+        let files = event.target.files || event.dataTransfer.files;
+        if (!files.length) return;
+        this.createImage(files[0]);
+    }
+
     handleChange(event) {
         const value = event.target.value;
         const name = event.target.name;
@@ -41,6 +59,7 @@ class Doctor extends Component {
         })
         console.log(this.state);
     }
+
 
     handleAppSubmit(event) {
         event.preventDefault();
@@ -61,11 +80,22 @@ class Doctor extends Component {
 
     handleIssueSubmit(event) {
         event.preventDefault();
+
+        const formData = {
+            file: this.state.image,
+        };
+        // let stateImages = this.state.images;
+        // axios.post(url, formData).then(response => {
+        //     stateImages.push(response.data);
+        //     this.setState({ images: stateImages });
+        // });
+
         let issue = {};
         issue.doctor_id = this.props.doctor.id;
         issue.title = this.state.titlei;
         issue.date = this.state.datei;
         issue.description = this.state.description;
+        issue.image = formData;
 
         console.log('submitted', issue);
         axios.post('/api/Issue/', issue)
@@ -74,6 +104,7 @@ class Doctor extends Component {
             });
         $("#modali").modal('hide');
     }
+
     handleChatSubmit(event) {
         event.preventDefault();
         let chat_id = this.props.doctor.id;
@@ -173,7 +204,7 @@ class Doctor extends Component {
         } else {
             gender = "female";
         }
-        let image = this.props.doctor.filename;
+        let image = "/images/" + this.props.doctor.filename;
 
         let today = new Date();
         let dd = today.getDate();
@@ -224,13 +255,7 @@ class Doctor extends Component {
                                             name="gender" class="form-control" readOnly />
                                     </div>
                                 </div>
-                                <div class="form-group row align-items-center">
-                                    <label class="col-3">Date of Birth</label>
-                                    <div class="col">
-                                        <input type="date"
-                                            name="birth" class="form-control" readOnly />
-                                    </div>
-                                </div>
+                                
 
                                 <div class="form-group row align-items-center">
                                     <label class="col-3">Specialties</label>
@@ -263,7 +288,7 @@ class Doctor extends Component {
                                 </div>
                                 <div class="card-footer bg-transparent">
                                     {/* <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal">Schedule Meeting</a> */}
-                                    <a href="#" class="btn btn-outline-primary" id="join" data-toggle="modal" data-target="#modali">Submit Issue</a>
+                                    <a href="#" class="btn btn-outline-primary" id="join" data-toggle="modal" data-target="#modali">Create Health Problem</a>
                                     <a href="#" class="btn btn-outline-success" id="join" data-toggle="modal" data-target="#modal-chat" >Send Message</a>
                                 </div>
                             </div>
@@ -284,7 +309,7 @@ class Doctor extends Component {
                                         <div class=" chat">
                                             <div class="card">
 
-                                                <div class="card-body msg_card_body">
+                                                <div class="card-body msg_card_body" style={{ height: "300px" }}>
                                                     {this.renderChat()}
 
                                                 </div>
@@ -360,7 +385,7 @@ class Doctor extends Component {
                             <div className="modal-dialog" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                        <h5 className="modal-title" id="exampleModalLabel">New Issue</h5>
+                                        <h5 className="modal-title" id="exampleModalLabel">New Health Problem</h5>
                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -369,7 +394,7 @@ class Doctor extends Component {
                                         <form onSubmit={this.handleIssueSubmit}>
                                             <div >
                                                 <span > Title:</span>
-                                                <input name="titlei" type="text" className="form-control" placeholder="Brief Description About the Issue"
+                                                <input name="titlei" type="text" className="form-control" placeholder="Brief Description About the Problem"
                                                     onChange={this.handleChange} required />
                                             </div>
                                             <div >
@@ -380,9 +405,15 @@ class Doctor extends Component {
 
                                             <div >
                                                 <span>Description:</span>
-                                                <textarea type="text" className="form-control" placeholder="Detailed Description About The Issue"
+                                                <textarea type="text" className="form-control" placeholder="Detailed Description About The Problem"
                                                     name="description" onChange={this.handleChange} />
                                             </div>
+
+                                            {/* <div >
+                                                <span>Photo:</span>
+                                                <input type="file" onChange={this.handleChangeFile} ></input>
+                                            </div> */}
+
                                             <button type="submit" className="btn btn-primary mt-3" > Submit </button>
                                         </form>
                                     </div>

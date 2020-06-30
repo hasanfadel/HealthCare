@@ -64,6 +64,15 @@ class IssueController extends Controller
         $issue->date = $request->date;
         $issue->description = $request->description;
 
+        // dd($request->image['file']);
+        // if ($request->get('file')) {
+            // $image = $request->image['file'];
+            // $name = time() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+            // $image->move(public_path('/uploads/'), $name);
+            // Image::make($request->get('file'))->save(public_path('storage/images/portfolio/') . $name);
+            // $issue->img_src = $name;
+        // }
+
         if ($issue->save()) {
             $issue->doctors()->attach($request->doctor_id);
             return response()->json(['message' => 'Issue has been submitted', 'issue' => $issue]);

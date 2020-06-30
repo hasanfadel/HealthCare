@@ -113,7 +113,7 @@ let a5 = document.createElement("button");
 a5.className = "btn btn-primary";
 let i5 = document.createElement("i");
 // i4.className = "fas fa-sitemap";
-a5.textContent = "Issues   ";
+a5.textContent = "Health Problems   ";
 a5.appendChild(i5);
 li5.appendChild(a5);
 a5.addEventListener("click", () => {

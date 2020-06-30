@@ -65,14 +65,14 @@ class Profile extends Component {
         patient.weight = this.state.weight;
         patient.disease = this.state.disease;
         patient.medicine = this.state.medicine;
-        const formData = new FormData()
-        formData.append(
-            'myFile',
-            this.state.selectedFile,
-            this.state.selectedFile.name
-        )
-        console.log('file', formData);
-        patient.filename = formData;
+        // const formData = new FormData()
+        // formData.append(
+        //     'myFile',
+        //     this.state.selectedFile,
+        //     this.state.selectedFile.name
+        // )
+        // console.log('file', formData);
+        // patient.filename = formData;
 
         console.log('submitted', patient);
         const config = {
@@ -80,7 +80,7 @@ class Profile extends Component {
                 'content-type': 'multipart/form-data'
             }
         };
-        axios.put('/api/Patient/' + this.state.profile.id, patient, config)
+        axios.put('/api/Patient/' + this.state.profile.id, patient)
             .then(response => {
                 console.log('Updated', response.data);
                 this.setState({
@@ -153,7 +153,7 @@ class Profile extends Component {
                                             name="gender" class="form-control" readOnly />
                                     </div>
                                 </div>
-                                <form id="profile" enctype="multipart/form-data" onSubmit={this.handleSubmit}>
+                                <form id="profile" onSubmit={this.handleSubmit}>
                                     <div class="form-group row align-items-center">
                                         <label class="col-3">Date of Birth</label>
                                         <div class="col">
